@@ -4,10 +4,11 @@ import { searchHistoryAtom } from '../store';
 import { useRouter } from 'next/router';
 
 import styles from '../styles/History.module.css';
+import { removeHistory} from "../lib/userData";
 
+// export const searchHistoryAtom = atom();
 
 export default function History() {
-
   const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
   const router = useRouter();
 
@@ -23,14 +24,17 @@ export default function History() {
     router.push(`/artwork?${searchHistory[index]}`)
   }
 
-  function removeHistoryClicked(e, index) {
+  async function removeHistoryClicked(e, index) {
     e.stopPropagation();
-    setSearchHistory(current => {
-      let x = [...current];
-      x.splice(index, 1)
-      return x;
-    });
+    // setSearchHistory(current => {
+    //   let x = [...current];
+    //   x.splice(index, 1)
+    //   return x;
+    // });
+    setSearchHistory(await removeFromHistory(searchHistory[index]));
   }
+
+  if(!searchHistory) return null;
 
   return (<>
 

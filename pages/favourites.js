@@ -3,9 +3,13 @@ import { Card, Col, Row } from 'react-bootstrap';
 import ArtworkCard from '../components/ArtworkCard';
 import { favouritesAtom } from '../store';
 
-export default function Favourites() {
+// export const favouritesAtom = atom();
 
+export default function Favourites() {
   const [favouritesList] = useAtom(favouritesAtom);
+  
+  if(!favouritesList) return null;
+
   return (
     <>
       {favouritesList.length > 0 ?
